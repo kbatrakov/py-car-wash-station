@@ -16,7 +16,6 @@ class CarWashStation:
         filtered_cars = [car for car in car_collection if car.clean_mark < self.clean_power]
         benefit = round(sum([car.comfort_class * ((self.clean_power - car.clean_mark) * self.average_rating) /
                              self.distance_from_city_center for car in filtered_cars]), 1)
-
         [self.wash_single_car(car) for car in filtered_cars]
         return benefit
 
@@ -29,5 +28,6 @@ class CarWashStation:
             car.clean_mark = self.clean_power
 
     def rate_service(self, rate: int):
-        self.average_rating = ((self.average_rating * (self.count_of_ratings - 1)) + rate) / self.count_of_ratings
         self.count_of_ratings += 1
+        self.average_rating = round(((self.average_rating * (self.count_of_ratings - 1)) + rate) / self.count_of_ratings, 1)
+
